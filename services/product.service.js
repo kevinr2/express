@@ -6,7 +6,7 @@ class ProductService {
         this.generate();
     }
 
-    generate(){
+    async generate(){
         const limit = 10;
         for (let index = 0; index < limit; index++) {   
            this.products.push({
@@ -18,7 +18,7 @@ class ProductService {
         }
     }
 
-    create(body){
+    async create(body){
         const newProduct ={
             id:faker.datatype.uuid(2),
             ...body
@@ -27,28 +27,28 @@ class ProductService {
         return newProduct
     }
 
-    find(){
+    async find(){
         return this.products;
     }
 
-    findOne(id){
+    async findOne(id){
         return this.products.find(item =>item.id === id)
     }
 
-    update(id,change){
-        const index = this.products.findIndex(item =>item.id === id)
+    async  update(id,change){
+       const index =  this.products.findIndex(item =>item.id === id)
         if (index === -1) {
-            throw new Error('no exites el elemento')
+             throw new Error('no exites el elemento')
         }else{
-          const product = this.products[index]
-          this.products[index] ={
+          const product =   this.products[index]
+           this.products[index] ={
               ...product,
               ...change
           }
         }
         return this.products[index]
     }
-    delete(id){
+    async delete(id){
         const index = this.products.findIndex(item =>item.id === id)
         if (index === -1) {
             throw new Error('no exites el elemento')

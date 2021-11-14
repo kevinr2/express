@@ -2,42 +2,94 @@ const faker = require('faker')
 const boom = require('@hapi/boom')
 class ProductService {
 
-    constructor(){
-        this.products =[];
-        this.generate();
+    constructor() {
+        this.products = [{
+            "id": 1,
+            "name": "Filete de ternera con salsa",
+            "qualification": 4.9,
+            "time": "25-30min",
+            "price": 14.99,
+            "image": "https://images.pexels.com/photos/675951/pexels-photo-675951.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=226&w=440"
+        },
+        {
+            "id": 2,
+            "name": "Desayuno de primer plano lácteos",
+            "qualification": 4.7,
+            "time": "20-25min",
+            "price": 9.99,
+            "image": "https://images.pexels.com/photos/376464/pexels-photo-376464.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=226&w=440"
+        },
+        {
+            "id": 3,
+            "name": "Burrito de pollo",
+            "qualification": 4.6,
+            "time": "25-30min",
+            "price": 13.99,
+            "image": "https://images.pexels.com/photos/461198/pexels-photo-461198.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=226&w=440"
+        },
+        {
+            "id": 4,
+            "name": "Plato de salmón",
+            "qualification": 4.5,
+            "time": "25-30min",
+            "price": 15.99,
+            "image": "https://images.pexels.com/photos/46239/salmon-dish-food-meal-46239.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=226&w=440"
+        },
+        {
+            "id": 5,
+            "name": "Postre",
+            "qualification": 4.8,
+            "time": "15-20min",
+            "price": 6.99,
+            "image": "https://images.pexels.com/photos/1099680/pexels-photo-1099680.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=226&w=440"
+        },
+        {
+            "id": 6,
+            "name": "Sándwich servido en la tabla de cortar",
+            "qualification": 4.7,
+            "time": "10-15min",
+            "price": 9.99,
+            "image": "https://images.pexels.com/photos/1600711/pexels-photo-1600711.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=650&w=940"
+        },
+        {
+            "id": 7,
+            "name": "Plato de aguacate cocido",
+            "qualification": 4.4,
+            "time": "15-25min",
+            "price": 12.99,
+            "image": "https://images.pexels.com/photos/262959/pexels-photo-262959.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=226&w=440"
+        },
+        {
+            "id": 8,
+            "name": "Hamburguesa",
+            "qualification": 4.6,
+            "time": "10-15min",
+            "price": 14.99,
+            "image": "https://images.pexels.com/photos/156114/pexels-photo-156114.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=226&w=440"
+        }];
+
     }
 
-    async generate(){
-        const limit = 10;
-        for (let index = 0; index < limit; index++) {   
-           this.products.push({
-                id: faker.datatype.uuid(2),
-                name:faker.commerce.productName(),
-                price: parseInt(faker.commerce.price(),10),
-                image: faker.image.imageUrl(),
-                isBlock:faker.datatype.boolean(),
-            })
-        }
-    }
 
-    async create(body){
-        const newProduct ={
-            id:faker.datatype.uuid(2),
+
+    async create(body) {
+        const newProduct = {
+            id: faker.datatype.uuid(2),
             ...body
         }
         this.products.push(newProduct)
         return newProduct
     }
 
-    async find(){
+    async find() {
         return this.products;
     }
 
-    async findOne(id){
-     const product= this.products.find(item =>item.id === id)
+    async findOne(id) {
+        const product = this.products.find(item => item.id === id)
         if (!product) {
             throw boom.notFound('product not found')
-               
+
         }
         if (product.isBlock) {
             throw boom.conflict('product not isblock')
@@ -45,27 +97,27 @@ class ProductService {
         return product;
     }
 
-    async  update(id,change){
-       const index =  this.products.findIndex(item =>item.id === id)
+    async update(id, change) {
+        const index = this.products.findIndex(item => item.id === id)
         if (index === -1) {
-             throw boom.notFound('product not found')
-        }else{
-          const product =   this.products[index]
-           this.products[index] ={
-              ...product,
-              ...change
-          }
+            throw boom.notFound('product not found')
+        } else {
+            const product = this.products[index]
+            this.products[index] = {
+                ...product,
+                ...change
+            }
         }
         return this.products[index]
     }
-    async delete(id){
-        const index = this.products.findIndex(item =>item.id === id)
+    async delete(id) {
+        const index = this.products.findIndex(item => item.id === id)
         if (index === -1) {
-           throw boom.notFound('product not found')
-        }else{
-            this.products.splice(index,1)
+            throw boom.notFound('product not found')
+        } else {
+            this.products.splice(index, 1)
         }
-        return {id};
+        return { id };
     }
 }
 

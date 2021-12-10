@@ -1,0 +1,25 @@
+@api = http://localhost:3000/api/v1/users
+
+GET {{api}}
+
+###
+
+GET {{api}}/
+
+POST {{api}}
+Content-Type: application/json
+
+{
+    "email": "kevin@gamil.com"
+    "password": "252624728"
+}
+
+###
+DELETE  {{api}}/61a7d4f560be5151efd9aa38
+###
+PUT  {{api}}/61a8f8ccc044526cc1196fb0
+Content-Type: application/json
+
+{
+    "email":""
+}

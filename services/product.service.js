@@ -1,75 +1,79 @@
-const faker = require('faker')
-const boom = require('@hapi/boom')
-const sequilize = require('../libs/sequilize')
-class ProductService {
+const faker = require('faker');
+const boom = require('@hapi/boom');
+
+const { models } = require('../libs/sequilize');
+
+class ProductsService {
 
     constructor() {
         this.products = [];
         this.generate();
     }
 
-    async generate() {
-        const limit = 10;
+    generate() {
+        const limit = 100;
         for (let index = 0; index < limit; index++) {
             this.products.push({
-                id: faker.datatype.uuid(2),
+                id: faker.datatype.uuid(),
                 name: faker.commerce.productName(),
                 price: parseInt(faker.commerce.price(), 10),
                 image: faker.image.imageUrl(),
                 isBlock: faker.datatype.boolean(),
-            })
+            });
         }
     }
 
-    async create(body) {
-        const newProduct = {
-            id: faker.datatype.uuid(2),
-            ...body
-        }
-        this.products.push(newProduct)
-        return newProduct
+    async create(data) {
+        const newProduct = await models.Product.create(data);
+        return newProduct;
     }
 
-    async find() {
-        const query = 'SELECT * FROM task';
-        const [data] = await sequilize.query(query)
-        return data
+    async find(query) {
+        const options = {
+            include: ['category'],
+        }
+        const { limit, offset } = query;
+        if (limit && offset) {
+            options.limit = limit;
+            options.offset = offset;
+        }
+        const products = await models.Product.findAll(options);
+        return products;
     }
 
     async findOne(id) {
-        const product = this.products.find(item => item.id === id)
+        const product = this.products.find(item => item.id === id);
         if (!product) {
-            throw boom.notFound('product not found')
-
+            throw boom.notFound('product not found');
         }
         if (product.isBlock) {
-            throw boom.conflict('product not isblock')
+            throw boom.conflict('product is block');
         }
         return product;
     }
 
-    async update(id, change) {
-        const index = this.products.findIndex(item => item.id === id)
+    async update(id, changes) {
+        const index = this.products.findIndex(item => item.id === id);
         if (index === -1) {
-            throw boom.notFound('product not found')
-        } else {
-            const product = this.products[index]
-            this.products[index] = {
-                ...product,
-                ...change
-            }
+            throw boom.notFound('product not found');
         }
-        return this.products[index]
+        const product = this.products[index];
+        this.products[index] = {
+            ...product,
+            ...changes
+        };
+        return this.products[index];
     }
+
     async delete(id) {
-        const index = this.products.findIndex(item => item.id === id)
+        const index = this.products.findIndex(item => item.id === id);
         if (index === -1) {
-            throw boom.notFound('product not found')
-        } else {
-            this.products.splice(index, 1)
+            throw boom.notFound('product not found');
         }
+        this.products.splice(index, 1);
         return { id };
     }
+
 }
 
-module.exports = ProductService;
+module.exports = ProductsService;

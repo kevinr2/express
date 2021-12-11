@@ -1,12 +1,9 @@
 const express = require('express')
 const routerApi = require('./router')
-const faker = require('faker')
-const cors = require('cors')
+
 const { errorHandler, logErrors, boomErrorHandler, ormErrorHandler } = require('./middlewares/error.handler')
 const app = express()
 const port = process.env.PORT || 3000;
-
-
 
 
 

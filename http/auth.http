@@ -1,0 +1,22 @@
+@api = http://localhost:3000/api/v1/auth
+
+
+###
+POST {{api}}/recovery
+Content-Type: application/json
+
+{
+    "email":"kevinreve096@gmail.com"
+}
+
+
+### change password
+
+
+POST {{api}}/change-password
+Content-Type: application/json
+
+{
+    "token":"eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjksImlhdCI6MTYzOTU4NTU4NiwiZXhwIjoxNjM5NTg2NDg2fQ.5b-1eU5J6jEfAuLuAmn42_6zdQU0MWh4liXatfYOauk",
+    "newPassword":"hola654321"
+}

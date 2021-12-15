@@ -1,0 +1,19 @@
+
+@api = http://localhost:3000/api/v1/
+
+
+###categories
+GET {{api}}products
+
+
+###crear categories
+POST {{api}}products
+Content-Type: application/json
+
+{
+    "name":"camisa 16",
+    "price":13000 ,
+    "description": "imadfd dsdfdf d ds  sd dd",
+    "image":"https://picsum.photos/200/300" ,
+    "categoryId":1
+}

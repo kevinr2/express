@@ -1,0 +1,17 @@
+
+@api = http://localhost:3000/api/v1/
+
+
+###categories
+GET {{api}}categories
+
+
+###crear categories
+POST {{api}}categories
+Content-Type: application/json
+Authorization: Bearer  eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOjEsInJvbGUiOiJhZG1pbiIsImlhdCI6MTYzOTU3MzgwOX0.pwk__IFDeKS1qx9UvR67lDaxuIvncfg74atmzS-IrXc
+
+{
+    "name": "categoria 5",
+    "image":"https://fakeimg.pl/350x200/"
+}

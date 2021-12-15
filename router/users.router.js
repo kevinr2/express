@@ -35,7 +35,7 @@ router.post('/',
         try {
             const body = req.body;
             const newCategory = await service.create(body);
-            res.status(201).json(newCategory);
+            res.json(newCategory);
         } catch (error) {
             next(error);
         }

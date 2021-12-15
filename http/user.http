@@ -1,0 +1,29 @@
+
+@api = http://localhost:3000/api/v1/
+###user
+
+GET {{api}}users
+
+###
+
+GET {{api}}
+
+###login
+
+POST {{api}}/auth/login
+Content-Type: application/json
+
+{
+    "email":"kevinreve096@gmail.com",
+    "password":"hola654321"
+}
+###crear user
+POST {{api}}users
+Content-Type: application/json
+
+
+{
+    "email":"kevinreve096@gmail.com",
+    "password":"hola123456",
+    "role":"admin"
+}

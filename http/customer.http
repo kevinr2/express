@@ -1,0 +1,21 @@
+
+@api = http://localhost:3000/api/v1/
+###user
+
+GET {{api}}customers
+
+
+###crear customers
+POST {{api}}customers
+Content-Type: application/json
+
+
+{
+    "name": "kevin",
+    "lastName":"revelo",
+    "phone": "25545886",
+    "user":{
+        "email":"kevin67@gmail.com",
+        "password": "kevin123456789"
+    }
+}

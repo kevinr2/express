@@ -1,0 +1,25 @@
+
+@api = http://localhost:3000/api/v1/
+
+
+###order id
+GET {{api}}orders/1
+
+
+###crear categories
+POST {{api}}orders
+Content-Type: application/json
+
+{
+   "customerId":  2
+}
+
+###
+POST {{api}}orders/add-item
+Content-Type: application/json
+
+{
+    "orderId": 1,
+    "productId": 2 ,
+    "amount": 30
+}
